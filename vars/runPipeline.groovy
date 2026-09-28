@@ -12,7 +12,7 @@ def call() {
         stage('Build') {
             steps {
                 container('maven') {
-                    sh 'mvn --version'
+                    sh 'mvn clean install'
                 }
             }
         }
