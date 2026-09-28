@@ -1,4 +1,4 @@
-def call(Map config = [:]) {
+def call(]) {
   echo "using shared library"
   def BUILDPOD_YAML = env.BUILDPOD_YAML
   pipeline {
