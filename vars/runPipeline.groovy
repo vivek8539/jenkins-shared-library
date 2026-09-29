@@ -14,6 +14,7 @@ def call() {
                 steps {
                     script {
                         stagesList = ['Build', 'Test', 'Deploy', 'Pause']
+                        input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
                     }
                 }
             }
