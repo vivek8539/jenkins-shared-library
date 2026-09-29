@@ -13,7 +13,7 @@ def call() {
             stage('Generate Pipeline') {
                 steps {
                     script {
-                        stagesList = ['Build', 'Test', 'Deploy']
+                        stagesList = ['Build', 'Test', 'Deploy', 'Pause']
                     }
                 }
             }

@@ -1,7 +1,10 @@
 def executeStage(String stageName) {
     if (stageName == 'Build') {
         build()
-    } else {
+    } else if (stageName == 'Pause') {
+        input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
+    }
+    else {
         echo "Executing ${stageName} stage"
     }
 }
