@@ -10,34 +10,23 @@ def call() {
         stages {
             stage('Generate Pipeline') {
                 steps {
-                    echo 'Preparing Build, Test, Deploy, and Pause stages'
-                }
-            }
+                    script {
+                        def stagesList = ['Build', 'Test', 'Deploy', 'Pause']
 
-            stage('Build') {
-                steps {
-                    echo 'Executing Build stage'
-                    container('maven') {
-                        sh 'mvn clean install -DskipTests=true'
+                        stagesList.each { stageName ->
+                            stage(stageName) {
+                                echo "Executing ${stageName} stage"
+                                if (stageName == 'Pause') {
+                                    input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
+                                } else if (stageName == 'Build') {
+                                    echo 'Executing build tasks'
+                                    container('maven') {
+                                        sh 'mvn clean install -DskipTests=true'
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-            }
-
-            stage('Test') {
-                steps {
-                    echo 'Executing Test stage'
-                }
-            }
-
-            stage('Deploy') {
-                steps {
-                    echo 'Executing Deploy stage'
-                }
-            }
-
-            stage('Pause') {
-                steps {
-                    input message: 'Do you want to proceed with Pause stage?', ok: 'Yes'
                 }
             }
         }
