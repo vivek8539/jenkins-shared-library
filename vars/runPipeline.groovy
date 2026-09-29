@@ -2,7 +2,12 @@ def call() {
     def stagesList = []
 
     pipeline {
-        agent any
+        agent {
+            kubernetes {
+                label 'stageExecutor-pod'
+                yaml env.BUILDPOD_YAML
+            }
+        }
 
         stages {
             stage('Generate Pipeline') {
@@ -13,18 +18,14 @@ def call() {
                 }
             }
 
-            stage('Setup Environment') {
-                agent {
-                    kubernetes {
-                        label 'build-pod'
-                        yaml env.BUILDPOD_YAML
-                    }
-                }
+            stage('Generated Pipeline') {
                 steps {
                     script {
+                        def stageExecutor = load 'pipeline/stageExecutor.groovy'
+
                         stagesList.each { stageName ->
                             stage(stageName) {
-                                echo "Executing ${stageName} stage"
+                                stageExecutor.executeStage(stageName)
                             }
                         }
                     }
