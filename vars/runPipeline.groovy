@@ -16,21 +16,20 @@ def call() {
                         stagesList = ['Build', 'Test', 'Deploy', 'Pause']
                     }
                 }
-
+            script {
                 stagesList.each { stageName ->
                     stage(stageName) {
                         echo "Executing ${stageName} stage"
-                        if (stageName =='Pause') {
+                        if (stageName == 'Pause') {
                             input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
                         } else if (stageName == 'Build') {
                             echo 'Executing build tasks'
-                            steps {
-                                container('maven') {
-                                    sh 'mvn clean install -DskipTests=true'
-                                }
+                            container('maven') {
+                                sh 'mvn clean install -DskipTests=true'
                             }
                         }
                     }
+                }
                 }
             }
 
