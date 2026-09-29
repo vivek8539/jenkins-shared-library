@@ -23,16 +23,16 @@ def call() {
                     script {
 //                        def stageExecutor = load 'pipeline/stageExecutor.groovy'
 
-//                        stagesList.each { stageName ->
-//                            stage(stageName) {
-//                                stageExecutor.executeStage(stageName)
-//                            }
-//                        }
-                        stage('Build') {
-                            stageExecutor.executeStage('Build')
-                        }
-                        stage('Test') {
-                            input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
+                        stagesList.each { stageName ->
+                            stage(stageName) {
+                                echo "Executing ${stageName} stage"
+                                if (stageName =='Pause') {
+                                    input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
+                                } else if (stageName == 'Build') {
+                                    echo 'Executing build tasks'
+                                    sh 'mvn clean install'
+                                }
+                            }
                         }
                     }
                 }
