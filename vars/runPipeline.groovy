@@ -1,3 +1,5 @@
+import com.connectify.PipelineUtils
+
 def call() {
     pipeline {
         agent {
@@ -11,8 +13,9 @@ def call() {
             stage('Generate Pipeline') {
                 steps {
                     script {
-                        def stagesList = ['Build', 'Test', 'Deploy', 'Pause']
-
+                        def stagesList = PipelineUtils.getStages()
+                        echo "current work dir: ${pwd()}"
+//                        def stagesList = ['Build', 'Test', 'Deploy', 'Pause']
                         stagesList.each { stageName ->
                             stage(stageName) {
                                 echo "Executing ${stageName} stage"
