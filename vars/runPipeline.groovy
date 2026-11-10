@@ -20,7 +20,7 @@ def call() {
                                     input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
                                 } else if (stageName == 'Build') {
                                     echo 'Executing build tasks'
-                                    sh 'mvn clean install -DskipTests=true'
+                                    bat 'mvn clean install -DskipTests=true'
                                 }
                             }
                         }
