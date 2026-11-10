@@ -3,10 +3,7 @@ import com.connectify.PipelineUtils
 def call() {
     pipeline {
         agent {
-            kubernetes {
-                label 'stageExecutor-pod'
-                yaml env.BUILDPOD_YAML
-            }
+            label 'built-in'
         }
 
         stages {
