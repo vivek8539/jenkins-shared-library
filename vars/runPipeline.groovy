@@ -20,9 +20,7 @@ def call() {
                                     input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
                                 } else if (stageName == 'Build') {
                                     echo 'Executing build tasks'
-                                    container('maven') {
-                                        sh 'mvn clean install -DskipTests=true'
-                                    }
+                                    sh 'mvn clean install -DskipTests=true'
                                 }
                             }
                         }
