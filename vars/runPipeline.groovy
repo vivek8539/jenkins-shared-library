@@ -14,7 +14,7 @@ def call() {
                         echo "current work dir: ${pwd()}"
 //                        def stagesList = ['Build', 'Test', 'Deploy', 'Pause']
                         stagesList.each { stageName ->
-                            stageName.run()
+                            stageName.run(stageName.toString())
                         }
                     }
                 }

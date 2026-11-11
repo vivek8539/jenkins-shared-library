@@ -10,7 +10,7 @@ class MavenBuild implements StepRun {
     }
 
     @Override
-    def run () {
+    def run (stageName) {
         build();
     }
 

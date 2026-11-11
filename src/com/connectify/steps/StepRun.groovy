@@ -2,5 +2,5 @@ package com.connectify.steps
 
 interface StepRun {
 
-    def  run();
+    def  run(stageName);
 }

@@ -9,12 +9,17 @@ class Approval implements StepRun {
     }
 
     @Override
-    def run() {
-        approval()
+    def run(stageName) {
+        approval(stageName)
     }
 
-    def approval() {
-        input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
+    def approval(stageName) {
+        script.input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
 
+    }
+
+    @Override
+    def run() {
+        return null
     }
 }

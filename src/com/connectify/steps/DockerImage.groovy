@@ -4,7 +4,7 @@ class DockerImage implements StepRun {
 
 
     @Override
-    def run() {
+    def run(stageName) {
         image();
     }
 
