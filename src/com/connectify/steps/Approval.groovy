@@ -17,9 +17,4 @@ class Approval implements StepRun {
         script.input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
 
     }
-
-    @Override
-    def run() {
-        return null
-    }
 }
