@@ -10,7 +10,7 @@ class PipelineUtils {
          [
                  new MavenBuild(script),
                  new DockerImage(),
-                 new Approval()
+                 new Approval(script)
         ]
     }
 }
