@@ -6,6 +6,7 @@ def call() {
             label 'built-in'
         }
         options {
+            buildDiscarder(logRotator(numToKeepStr: '5'))
             disableConcurrentBuilds()
         }
 
