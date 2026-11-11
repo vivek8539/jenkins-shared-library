@@ -2,13 +2,20 @@ package com.connectify.steps
 
 class MavenBuild implements StepRun {
 
+
+    def script
+
+    MavenBuild(script) {
+        this.script = script
+    }
+
     @Override
     def run () {
         build();
     }
 
     def build() {
-        echo 'Executing build tasks'
-        bat 'mvn clean install -DskipTests=true' // sh in case of master
+        script.echo 'Executing build tasks'
+        script.bat 'mvn clean install -DskipTests=true' // sh in case of master
     }
 }

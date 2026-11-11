@@ -8,7 +8,7 @@ import com.connectify.steps.StepRun;
 class PipelineUtils {
     static List<StepRun> getStages() {
          [
-                 new MavenBuild(),
+                 new MavenBuild(this),
                  new DockerImage(),
                  new Approval()
         ]
