@@ -5,6 +5,9 @@ def call() {
         agent {
             label 'built-in'
         }
+        options {
+            disableConcurrentBuilds()
+        }
 
         stages {
             stage('Generate Pipeline') {
