@@ -26,7 +26,7 @@ class BuildDockerImage extends BaseStep {
         }
 
                 String newVersion = getNewVersion(version)
-        container('maven') {
+        script.container('maven') {
 
             script.sh "mvn versions:set -DnewVersion=0.0.2"
             script.sh "mvn versions:commit"
