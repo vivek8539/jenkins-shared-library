@@ -2,15 +2,18 @@ package com.connectify.steps
 
 class BuildJava extends BaseStep {
 
+    def script
+
     BuildJava() {
         super("Build")
+        this.script = script
     }
 
     @Override
     public void execute() {
-        echo 'Executing build tasks'
-        container('maven') {
-            sh 'mvn clean install -DskipTests=true'
+        script.echo 'Executing build tasks'
+        script.container('maven') {
+            script.sh 'mvn clean install -DskipTests=true'
         }
     }
 }
