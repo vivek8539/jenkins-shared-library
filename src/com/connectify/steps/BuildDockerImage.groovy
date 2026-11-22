@@ -45,18 +45,18 @@ class BuildDockerImage extends BaseStep {
         ]) {
 
             script.sh '''
-                                        RAW_URL=$(git remote get-url origin)
-                                        CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
+                RAW_URL=$(git remote get-url origin)
+                CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
                                 
-                                        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-                                        if [ "$CURRENT_BRANCH" = "HEAD" ]; then
-                                            # If detached, try to get the branch name from Jenkins environment variables
-                                            CURRENT_BRANCH="${BRANCH_NAME:-main}"
-                                        fi
+                CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+                if [ "$CURRENT_BRANCH" = "HEAD" ]; then
+                    # If detached, try to get the branch name from Jenkins environment variables
+                    CURRENT_BRANCH="${BRANCH_NAME:-main}"
+                fi
                                         
-                                        echo "Pushing to branch: ${CURRENT_BRANCH}"
-                                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@${CLEAN_URL} HEAD:refs/heads/${CURRENT_BRANCH}
-                                    '''
+                echo "Pushing to branch: ${CURRENT_BRANCH}"
+                git push https://${GIT_USERNAME}:${GIT_TOKEN}@${CLEAN_URL} HEAD:refs/heads/${CURRENT_BRANCH}
+            '''
         }
     }
 
