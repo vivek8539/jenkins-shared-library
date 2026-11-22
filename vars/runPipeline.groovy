@@ -1,5 +1,3 @@
-import com.connectify.PipelineUtils
-
 def call() {
     pipeline {
         agent {

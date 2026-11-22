@@ -1,5 +1,3 @@
-package com.connectify
-
 import com.connectify.steps.BuildJava
 import com.connectify.steps.StepRun;
 
