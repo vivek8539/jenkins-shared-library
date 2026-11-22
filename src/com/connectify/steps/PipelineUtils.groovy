@@ -4,7 +4,8 @@ class PipelineUtils {
 
     List<StepRun> getStages(script) {
          [
-                 new BuildJava(script)
+                 new BuildJava(script),
+                 new BuildDockerImage(script)
         ]
     }
 }
