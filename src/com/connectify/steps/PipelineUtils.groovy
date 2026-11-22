@@ -1,5 +1,4 @@
-import com.connectify.steps.BuildJava
-import com.connectify.steps.StepRun;
+package com.connectify.steps
 
 class PipelineUtils {
 

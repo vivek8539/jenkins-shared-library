@@ -4,7 +4,7 @@ class BuildJava extends BaseStep {
 
     def script
 
-    BuildJava() {
+    BuildJava(script) {
         super("Build")
         this.script = script
     }
