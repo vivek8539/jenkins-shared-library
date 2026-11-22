@@ -32,6 +32,8 @@ class BuildDockerImage extends BaseStep {
             script.sh "mvn versions:commit"
         }
 
+        script.sh """git config user.name 'jenkins bot' """
+        script.sh """git config user.email 'jenkins@connectify.com' """
         script.sh "git add pom.xml"
         script.sh "git commit -m \"Bump version to ${newVersion}\""
         script.sh "git push origin HEAD"
