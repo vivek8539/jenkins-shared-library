@@ -4,6 +4,6 @@ interface StepRun {
 
 
     String getStep();
-    run();
+    void execute();
 
 }

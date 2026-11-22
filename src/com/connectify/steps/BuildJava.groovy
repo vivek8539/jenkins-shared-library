@@ -7,7 +7,7 @@ class BuildJava extends BaseStep {
     }
 
     @Override
-    def run() {
+    def execute() {
         echo 'Executing build tasks'
         container('maven') {
             sh 'mvn clean install -DskipTests=true'
