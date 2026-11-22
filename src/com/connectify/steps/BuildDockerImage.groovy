@@ -26,17 +26,38 @@ class BuildDockerImage extends BaseStep {
         }
 
                 String newVersion = getNewVersion(version)
-        script.container('maven') {
+        container('maven') {
 
-            script.sh "mvn versions:set -DnewVersion=${newVersion}"
+            script.sh "mvn versions:set -DnewVersion=0.0.2"
             script.sh "mvn versions:commit"
         }
-
         script.sh """git config user.name 'jenkins bot' """
         script.sh """git config user.email 'jenkins@connectify.com' """
         script.sh "git add pom.xml"
-        script.sh "git commit -m \"Bump version to ${newVersion}\""
-        script.sh "git push origin HEAD"
+        script.sh "git commit -m \"Bump version to 0.0.2\""
+        script.sh "git remote -v"
+        script.withCredentials([
+                script.usernamePassword(
+                        credentialsId: 'github',
+                        usernameVariable: 'GIT_USERNAME',
+                        passwordVariable: 'GIT_TOKEN'
+                )
+        ]) {
+
+            script.sh '''
+                                        RAW_URL=$(git remote get-url origin)
+                                        CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
+                                
+                                        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+                                        if [ "$CURRENT_BRANCH" = "HEAD" ]; then
+                                            # If detached, try to get the branch name from Jenkins environment variables
+                                            CURRENT_BRANCH="${BRANCH_NAME:-main}"
+                                        fi
+                                        
+                                        echo "Pushing to branch: ${CURRENT_BRANCH}"
+                                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@${CLEAN_URL} HEAD:refs/heads/${CURRENT_BRANCH}
+                                    '''
+        }
     }
 
     private static String getNewVersion(String currentVersion) {
