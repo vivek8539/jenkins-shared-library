@@ -31,8 +31,6 @@ def call() {
                                 sh "git add pom.xml"
                                 sh "git commit -m \"Bump version to 0.0.1\""
                                 sh "git remote -v"
-                                def RAW_URL=$(git remote get-url origin)
-                                def CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
                                 withCredentials([
                                         usernamePassword(
                                                 credentialsId: 'github',
@@ -42,6 +40,9 @@ def call() {
                                 ]) {
 
                                     sh '''
+                                        RAW_URL=$(git remote get-url origin)
+                                        CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
+                                
                                         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
                                         if [ "$CURRENT_BRANCH" = "HEAD" ]; then
                                             # If detached, try to get the branch name from Jenkins environment variables
