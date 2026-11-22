@@ -15,9 +15,9 @@ def call() {
                     script {
                         def stagesList = PipelineUtils.getStages()
                         echo "current work dir: ${pwd()}"
-                        stagesList.each { stage ->
-                            stage(stage.getStep()) {
-                                stage.execute()
+                        stagesList.each { currentStage ->
+                            stage(currentStage.getStep()) {
+                                currentStage.execute()
                             }
                         }
                     }
