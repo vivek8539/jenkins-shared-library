@@ -31,9 +31,8 @@ def call() {
                                 sh "git add pom.xml"
                                 sh "git commit -m \"Bump version to 0.0.1\""
                                 sh "git remote -v"
-                                RAW_URL=$(sh "git remote get-url origin")
-
-                                CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
+                                def RAW_URL = sh(returnStdout: true, script: 'git remote get-url origin').trim()
+                                def CLEAN_URL = RAW_URL.replace('https://', '')
                                 withCredentials([
                                         usernamePassword(
                                                 credentialsId: 'github',
