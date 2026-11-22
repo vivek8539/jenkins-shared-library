@@ -17,6 +17,8 @@ class BuildDockerImage extends BaseStep {
         def ImageName = "${script.env.DOCKER_USERNAME}/${pom.artifactId}:${pom.version}"
         script.echo "Image Name: ${ImageName}"
 
+        script.input message: 'Do you want to continue?', ok: 'Yes, Continue'
+
         script.container('kaniko') {
             script.sh """
                 /kaniko/executor --context . --dockerfile ${script.pwd()}/Dockerfile --destination ${ImageName} --insecure --skip-tls-verify
