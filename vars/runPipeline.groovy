@@ -31,7 +31,19 @@ def call() {
                                 sh "git add pom.xml"
                                 sh "git commit -m \"Bump version to 0.0.1\""
                                 sh "git remote -v"
-                                sh "git push origin HEAD"
+                                RAW_URL=$(sh "git remote get-url origin")
+
+                                CLEAN_URL=$(echo "$RAW_URL" | sed 's|https://||')
+                                withCredentials([
+                                        usernamePassword(
+                                                credentialsId: 'github',
+                                                usernameVariable: 'GIT_USERNAME',
+                                                passwordVariable: 'GIT_TOKEN'
+                                        )
+                                ]) {
+
+                                    sh "git push https://${GIT_USERNAME}:${GIT_TOKEN}@${CLEAN_URL} HEAD"
+                                }
                             }
                         }
                     }
