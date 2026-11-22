@@ -28,13 +28,13 @@ class BuildDockerImage extends BaseStep {
                 String newVersion = getNewVersion(version)
         script.container('maven') {
 
-            script.sh "mvn versions:set -DnewVersion=0.0.2"
+            script.sh "mvn versions:set -DnewVersion=${newVersion}"
             script.sh "mvn versions:commit"
         }
         script.sh """git config user.name 'jenkins bot' """
         script.sh """git config user.email 'jenkins@connectify.com' """
         script.sh "git add pom.xml"
-        script.sh "git commit -m \"Bump version to 0.0.2\""
+        script.sh "git commit -m \"Bump version to ${newVersion}\""
         script.sh "git remote -v"
         script.withCredentials([
                 script.usernamePassword(
