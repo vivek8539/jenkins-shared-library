@@ -8,7 +8,10 @@ def call() {
                 yaml env.BUILDPOD_YAML
             }
         }
-
+        options {
+            buildDiscarder(logRotator(numToKeepStr: '5'))
+            disableConcurrentBuilds()
+        }
         stages {
             stage('Generate Pipeline') {
                 steps {
