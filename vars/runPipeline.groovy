@@ -15,17 +15,9 @@ def call() {
                     script {
                         def stagesList = PipelineUtils.getStages()
                         echo "current work dir: ${pwd()}"
-                        stagesList.each { stageName ->
-                            stage(stageName.getStep()) {
-                                echo "Executing ${stageName} stage"
-                                if (stageName == 'Pause') {
-                                    input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'
-                                } else if (stageName == 'Build') {
-                                    echo 'Executing build tasks'
-                                    container('maven') {
-                                        sh 'mvn clean install -DskipTests=true'
-                                    }
-                                }
+                        stagesList.each { stage ->
+                            stage(stage.getStep()) {
+                                stage.execute()
                             }
                         }
                     }
