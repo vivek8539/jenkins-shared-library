@@ -14,7 +14,7 @@ class BuildDockerImage extends BaseStep {
         def pom = script.readMavenPom(file: 'pom.xml')
         script.echo "Application: ${pom.artifactId}"
         script.echo "Version: ${pom.version}"
-        def ImageName = "${env.DOCKER_USERNAME}/${pom.artifactId}:${pom.version}"
+        def ImageName = "${script.env.DOCKER_USERNAME}/${pom.artifactId}:${pom.version}"
         script.echo "Image Name: ${ImageName}"
 
         script.container('kaniko') {
