@@ -15,9 +15,8 @@ def call() {
                     script {
                         def stagesList = PipelineUtils.getStages()
                         echo "current work dir: ${pwd()}"
-//                        def stagesList = ['Build', 'Test', 'Deploy', 'Pause']
                         stagesList.each { stageName ->
-                            stage(stageName) {
+                            stage(stageName.getStep()) {
                                 echo "Executing ${stageName} stage"
                                 if (stageName == 'Pause') {
                                     input message: "Do you want to proceed with ${stageName} stage?", ok: 'Yes'

@@ -1,12 +1,12 @@
-package com.connectify;
+package com.connectify
+
+import com.connectify.steps.BuildJava
+import com.connectify.steps.StepRun;
 
 class PipelineUtils {
-    static List getStages() {
+    static List<StepRun> getStages() {
          [
-            'Build',
-            'Test',
-            'Deploy',
-            'Pause'
+                 new BuildJava()
         ]
     }
 }
