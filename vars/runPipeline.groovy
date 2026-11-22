@@ -23,13 +23,13 @@ def call() {
 //                                currentStage.execute()
                                 container('maven') {
 
-                                    sh "mvn versions:set -DnewVersion=0.0.1"
+                                    sh "mvn versions:set -DnewVersion=0.0.2"
                                     sh "mvn versions:commit"
                                 }
                                 sh """git config user.name 'jenkins bot' """
                                 sh """git config user.email 'jenkins@connectify.com' """
                                 sh "git add pom.xml"
-                                sh "git commit -m \"Bump version to 0.0.1\""
+                                sh "git commit -m \"Bump version to 0.0.2\""
                                 sh "git remote -v"
                                 withCredentials([
                                         usernamePassword(
