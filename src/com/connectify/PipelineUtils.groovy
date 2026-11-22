@@ -4,7 +4,8 @@ import com.connectify.steps.BuildJava
 import com.connectify.steps.StepRun;
 
 class PipelineUtils {
-    static List<StepRun> getStages(script) {
+
+    List<StepRun> getStages(script) {
          [
                  new BuildJava(script)
         ]

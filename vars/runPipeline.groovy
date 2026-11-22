@@ -13,7 +13,7 @@ def call() {
             stage('Generate Pipeline') {
                 steps {
                     script {
-                        def stagesList = PipelineUtils.getStages(this)
+                        def stagesList = new PipelineUtils().getStages(this)
                         echo "current work dir: ${pwd()}"
                         stagesList.each { currentStage ->
                             stage(currentStage.getStep()) {
