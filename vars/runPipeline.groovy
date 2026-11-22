@@ -21,10 +21,10 @@ def call() {
                         stagesList.each { currentStage ->
                             stage(currentStage.getStep()) {
 //                                currentStage.execute()
-                                script.container('maven') {
+                                container('maven') {
 
-                                    script.sh "mvn versions:set -DnewVersion=0.0.1"
-                                    script.sh "mvn versions:commit"
+                                    sh "mvn versions:set -DnewVersion=0.0.1"
+                                    sh "mvn versions:commit"
                                 }
                                 sh """git config user.name 'jenkins bot' """
                                 sh """git config user.email 'jenkins@connectify.com' """
