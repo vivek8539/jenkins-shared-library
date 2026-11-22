@@ -11,7 +11,7 @@ class BuildDockerImage extends BaseStep {
 
     @Override
     void execute() {
-        def pom = readMavenPom(file: 'pom.xml')
+        def pom = script.readMavenPom(file: 'pom.xml')
         script.echo "Application: ${pom.artifactId}"
         script.echo "Version: ${pom.version}"
         def ImageName = "${env.DOCKER_USERNAME}/${pom.artifactId}:${pom.version}"
