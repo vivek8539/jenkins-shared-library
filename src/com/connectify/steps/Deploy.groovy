@@ -17,7 +17,7 @@ class Deploy extends BaseStep{
             script.withCredentials([
                     script.file(credentialsId: 'k8s-kubeconfig', variable: 'KUBECONFIG')
             ]) {
-                script.input message: 'Do you want to continue?', ok: 'Yes, Continue'
+                script.cat $KUBECONFIG
 
                 script.sh """
                 helm version
