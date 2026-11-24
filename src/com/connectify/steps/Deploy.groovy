@@ -14,10 +14,14 @@ class Deploy extends BaseStep{
     void execute() {
         script.echo 'Executing deploy tasks'
         script.container('deploy') {
-            script.sh """
+            script.withCredentials([
+                    script.file(credentialsId: 'k8s-kubeconfig', variable: 'KUBECONFIG')
+            ]) {
+                script.sh """
                 helm version
                 helm upgrade --install messaging-service ./.devops/helm -n dk2359-b --set image.tag=vivek8539/messaging-service:0.0.2-SNAPSHOT
             """
+            }
         }
 
     }
