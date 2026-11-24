@@ -21,6 +21,7 @@ class Deploy extends BaseStep{
 
                 script.sh """
                 helm version
+                cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
                 helm upgrade --install messaging-service ./.devops/helm -n dk2359-b --set image.tag=vivek8539/messaging-service:0.0.2-SNAPSHOT
             """
             }
