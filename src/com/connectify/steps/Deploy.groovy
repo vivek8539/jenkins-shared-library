@@ -17,9 +17,9 @@ class Deploy extends BaseStep{
             script.withCredentials([
                     script.file(credentialsId: 'k8s-kubeconfig', variable: 'KUBECONFIG')
             ]) {
-                script.cat $KUBECONFIG
 
                 script.sh """
+                    cat $KUBECONFIG
                 helm version
                 cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
                 cat /var/run/secrets/kubernetes.io/serviceaccount/token
