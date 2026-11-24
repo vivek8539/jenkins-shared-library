@@ -16,6 +16,7 @@ class Deploy extends BaseStep{
         script.container('deploy') {
             script.sh """
                 helm version
+                helm upgrade --install messaging-service ./.devops/helm -n dk2359-b --set image.tag=vivek8539/messaging-service:0.0.2-SNAPSHOT
             """
         }
 
