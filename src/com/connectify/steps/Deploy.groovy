@@ -18,13 +18,13 @@ class Deploy extends BaseStep{
                     script.file(credentialsId: 'k8s-kubeconfig', variable: 'KUBECONFIG')
             ]) {
 
-                script.sh """
+                script.sh '''
                     cat $KUBECONFIG
                 helm version
                 cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
                 cat /var/run/secrets/kubernetes.io/serviceaccount/token
                 helm upgrade --install messaging-service ./.devops/helm -n dk2359-b --set image.tag=vivek8539/messaging-service:0.0.2-SNAPSHOT
-            """
+            '''
             }
         }
 
