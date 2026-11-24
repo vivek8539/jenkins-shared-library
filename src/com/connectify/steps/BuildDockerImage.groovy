@@ -16,12 +16,14 @@ class BuildDockerImage extends BaseStep {
         script.echo "Application: ${pom.artifactId}"
         script.echo "Version: ${version}"
 
-        String ImageName = "${script.env.DOCKER_USERNAME}/${pom.artifactId}:${version}"
-        script.echo "Image Name: ${ImageName}"
+        String imageName = "${script.env.DOCKER_USERNAME}/${pom.artifactId}:${version}"
+        script.echo "Image Name: ${imageName}"
+
+        script.env.IMAGE_NAME = imageName
 
         script.container('kaniko') {
             script.sh """
-                /kaniko/executor --context . --dockerfile ${script.pwd()}/Dockerfile --destination ${ImageName} --insecure --skip-tls-verify
+                /kaniko/executor --context . --dockerfile ${script.pwd()}/Dockerfile --destination ${imageName} --insecure --skip-tls-verify
             """
         }
 
