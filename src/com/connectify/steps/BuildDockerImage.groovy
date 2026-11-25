@@ -25,7 +25,7 @@ class BuildDockerImage extends BaseStep {
 
         script.container('kaniko') {
             script.sh """
-                /kaniko/executor --context . --dockerfile ${script.pwd()}/Dockerfile --destination ${imageName} --insecure --skip-tls-verify
+                /kaniko/executor --context . --dockerfile ${script.pwd()}/Dockerfile --destination ${imageName} --cache=true --cache-repo=vivek8539/messaging-service --insecure --skip-tls-verify
             """
         }
 
