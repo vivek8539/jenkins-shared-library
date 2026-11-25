@@ -20,6 +20,9 @@ class Deploy extends BaseStep{
 
                 script.sh '''
                 helm version
+                echo "KUBECONFIG=$KUBECONFIG"
+
+                cat $KUBECONFIG 
                 helm upgrade --install $APPLICATION ./.devops/helm -n dk2359-b --set image.tag=$IMAGE_TAG
             '''
             }
